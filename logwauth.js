@@ -22,15 +22,18 @@ wauthparam.redirect = "https://itung.in.my.id/dashboard/";
 function setCookie(name, value, hours) {
     const date = new Date();
     date.setTime(date.getTime() + hours * 60 * 60 * 1000);
-    document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/; Secure; HttpOnly`;
+    // document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/; Secure; HttpOnly`;
+    document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/; domain=.my.id; Secure; HttpOnly`;
+
 }
 
 // Override `qrController` success behavior
 wauthparam.success = function (token) {
-    console.log("Token diterima:", token); // Debugging
+    console.log("Token diterima:", token); // Debug log untuk memastikan token diterima
     setCookie(wauthparam.tokencookiename, token, wauthparam.tokencookiehourslifetime);
-    window.location.href = wauthparam.redirect; // Redirect setelah login
+    window.location.href = wauthparam.redirect;
 };
+
 
 // Delete existing cookies and initialize the QR Controller
 deleteCookie(wauthparam.tokencookiename);
