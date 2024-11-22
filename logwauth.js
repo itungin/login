@@ -29,10 +29,16 @@ function setCookie(name, value, hours) {
 
 // Override `qrController` success behavior
 wauthparam.success = function (token) {
-    console.log("Token diterima:", token); // Debug log untuk memastikan token diterima
-    setCookie(wauthparam.tokencookiename, token, wauthparam.tokencookiehourslifetime);
-    window.location.href = wauthparam.redirect;
+  console.log("Token berhasil diterima dari WhatsAuth:", token); // Periksa apakah token diterima
+  setCookie(wauthparam.tokencookiename, token, wauthparam.tokencookiehourslifetime);
+  console.log("Token disimpan di cookies dengan nama:", wauthparam.tokencookiename);
+  window.location.href = wauthparam.redirect;
 };
+
+wauthparam.error = function (message) {
+  console.error("Error WhatsAuth:", message); // Cek jika ada error selama proses login
+};
+
 
 
 // Delete existing cookies and initialize the QR Controller
