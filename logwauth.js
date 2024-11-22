@@ -20,12 +20,13 @@ wauthparam.redirect = "https://itung.in.my.id/dashboard/";
 
 // Function to set cookies
 function setCookie(name, value, hours) {
-    const date = new Date();
-    date.setTime(date.getTime() + hours * 60 * 60 * 1000);
-    // document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/; Secure; HttpOnly`;
-    document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/; domain=.my.id; Secure; HttpOnly`;
-
+  const date = new Date();
+  date.setTime(date.getTime() + hours * 60 * 60 * 1000);
+  const expires = `expires=${date.toUTCString()}`;
+  document.cookie = `${name}=${value}; ${expires}; path=/; Secure; SameSite=Strict;`;
+  console.log(`Cookies diset: ${name}=${value}`);
 }
+
 
 // Override `qrController` success behavior
 wauthparam.success = function (token) {
@@ -34,6 +35,7 @@ wauthparam.success = function (token) {
   console.log("Token disimpan ke cookies dengan nama: authToken");
   window.location.href = wauthparam.redirect; // Redirect ke dashboard
 };
+
 
 
 wauthparam.error = function (message) {
